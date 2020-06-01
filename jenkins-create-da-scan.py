@@ -72,7 +72,7 @@ data =   {
           "http_and_https": true,
           "directory_restriction_type": "DIRECTORY_AND_SUBDIRECTORY"            
         }
-      }
+      },
       "auth_configuration": {
         "authentications": {
            "AUTO": {
