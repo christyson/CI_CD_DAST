@@ -16,6 +16,8 @@ from urllib.parse import urlparse
 api_id = os.getenv("VeraID")
 api_secret = os.getenv("VeraPW")
 dynamic_target = os.getenv("Dyanamic_Target")
+login_user = os.getenv("Dynamic_User")
+login_pass = os.getenv("Dynamic_Pass")
 #print("Dynamic Target is: " + dynamic_target)
 dynamic_job = os.getenv("JOB_NAME") #Dynamic Job name will be same as Jenkins project name
 
@@ -67,8 +69,19 @@ data =   {
       "scan_config_request": {
         "target_url": {
           "url": dynamic_target,
+          "http_and_https": true,
+          "directory_restriction_type": "DIRECTORY_AND_SUBDIRECTORY"            
         }
       }
+      "auth_configuration": {
+        "authentications": {
+           "AUTO": {
+              "username": login_user,
+              "password": login_pass,
+              "authtype": "AUTO"
+            }
+          }
+        }
     }
   ],
   "schedule": {
