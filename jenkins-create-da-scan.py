@@ -69,16 +69,16 @@ data =   {
       "scan_config_request": {
         "target_url": {
           "url": dynamic_target,
-          "http_and_https": "true",
+          "http_and_https": True,
           "directory_restriction_type": "DIRECTORY_AND_SUBDIRECTORY"            
         }
       },
       "auth_configuration": {
         "authentications": {
-           "BASIC": {
+           "AUTO": {
               "username": login_user,
               "password": login_pass,
-              "authtype": "BASIC"
+              "authtype": "AUTO"
             }
           }
         }
