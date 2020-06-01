@@ -69,7 +69,7 @@ data =   {
       "scan_config_request": {
         "target_url": {
           "url": dynamic_target,
-          "http_and_https": true,
+          "http_and_https": "true",
           "directory_restriction_type": "DIRECTORY_AND_SUBDIRECTORY"            
         }
       },
