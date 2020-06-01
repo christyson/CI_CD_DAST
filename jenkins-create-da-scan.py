@@ -77,8 +77,8 @@ data =   {
       "auth_configuration": {
         "authentications": {
            "AUTO": {
-              "username": login_user,
-              "password": login_pass,
+              "username": "login_user",
+              "password": "login_pass",
               "authtype": "AUTO"
             }
           }
