@@ -75,10 +75,10 @@ data =   {
       },
       "auth_configuration": {
         "authentications": {
-           "AUTO": {
+           "BASIC": {
               "username": login_user,
               "password": login_pass,
-              "authtype": "AUTO"
+              "authtype": "BASIC"
             }
           }
         }
