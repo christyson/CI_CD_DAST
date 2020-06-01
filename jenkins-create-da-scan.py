@@ -72,17 +72,17 @@ data =   {
           "url": dynamic_target,
           "http_and_https": True,
           "directory_restriction_type": "DIRECTORY_AND_SUBDIRECTORY"            
+       },
+       "auth_configuration": {
+         "authentications": {
+            "AUTO": {
+               "username": "login_user",
+               "password": "login_pass",
+               "authtype": "AUTO"
+             }
+           }
         }
-      },
-      "auth_configuration": {
-        "authentications": {
-           "AUTO": {
-              "username": "login_user",
-              "password": "login_pass",
-              "authtype": "AUTO"
-            }
-          }
-        }
+      }
     }
   ],
   "schedule": {
