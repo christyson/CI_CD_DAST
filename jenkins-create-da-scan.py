@@ -18,7 +18,8 @@ api_secret = os.getenv("VeraPW")
 dynamic_target = os.getenv("Dyanamic_Target")
 login_user = os.getenv("Dynamic_User")
 login_pass = os.getenv("Dynamic_Pass")
-#print("Dynamic Target is: " + dynamic_target)
+print("Dynamic Target is: " + dynamic_target)
+print("Login user is: " + login_user)
 dynamic_job = os.getenv("JOB_NAME") #Dynamic Job name will be same as Jenkins project name
 
 
