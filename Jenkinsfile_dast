@@ -19,8 +19,8 @@ pipeline {
     }
     stage('----Create Veracode Dynamic Analysis Scan----'){
         steps {[
-           withCredentials([usernamePassword(credentialsId: 'Veracode', passwordVariable: 'VeraPW', usernameVariable: 'VeraID')]),
-           withCredentials([usernamePassword(credentialsId: 'Dynamic_Login', passwordVariable: 'Dynamic_Pass', usernameVariable: 'Dynamic_User')])] {
+           withCredentials(usernamePassword(credentialsId: 'Veracode', passwordVariable: 'VeraPW', usernameVariable: 'VeraID'),
+           withCredentials(usernamePassword(credentialsId: 'Dynamic_Login', passwordVariable: 'Dynamic_Pass', usernameVariable: 'Dynamic_User')] {
               sh 'python3 "$WORKSPACE/jenkins-create-da-scan.py"'           
            }
         }
