@@ -85,7 +85,7 @@ data =   {
            }
         },
         "internal_scan_configuration": {
-          "enabled": true,
+          "enabled": True,
           "gateway_id": gateway_id,
           "endpoint_id": endpoint_id
       }
