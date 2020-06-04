@@ -76,20 +76,20 @@ data =   {
           "url": dynamic_target,
           "http_and_https": True,
           "directory_restriction_type": "DIRECTORY_AND_SUBDIRECTORY"            
-       },
-       "auth_configuration": {
+        },
+        "auth_configuration": {
          "authentications": {
-            "AUTO": {
-               "username": login_user,
-               "password": login_pass,
-               "authtype": "AUTO"
-             }
-           }
+          "AUTO": {
+           "username": login_user,
+           "password": login_pass,
+           "authtype": "AUTO"
+          }
+         }
         },
         "internal_scan_configuration": {
-          "enabled": True,
-          "gateway_id": gateway_id,
-          "endpoint_id": endpoint_id
+         "enabled": True,
+         "gateway_id": gateway_id,
+         "endpoint_id": endpoint_id
         }
       }
     }
