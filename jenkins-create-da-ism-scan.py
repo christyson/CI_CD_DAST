@@ -24,6 +24,8 @@ gateway_id = os.getenv("gateway_id")
 endpoint_id = os.getenv("endpoint_id")
 print("gateway id is: " + gateway_id)
 print("endpoint id is: " + endpoint_id)
+gate = os.getenv("gid")
+end = os.getenv("eid")
 dynamic_job = os.getenv("JOB_NAME") #Dynamic Job name will be same as Jenkins project name
 
 
@@ -88,8 +90,8 @@ data =   {
         },
         "internal_scan_configuration": {
          "enabled": True,
-         "gateway_id": gateway_id,
-         "endpoint_id": endpoint_id
+         "gateway_id": gid,
+         "endpoint_id": eid
         }
       }
     }
