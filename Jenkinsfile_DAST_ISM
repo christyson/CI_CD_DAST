@@ -1,0 +1,38 @@
+pipeline {
+  agent {
+    docker {
+      image 'python:3'
+    }
+  }
+  stages {
+    stage ('----Pull----') {
+       steps {
+          git 'https://github.com/christyson/NodeGoat_DAST'
+       }
+    }
+    stage ('----pip----') {
+       steps {
+          sh '''
+             pip3 install requests
+          '''
+       }
+    }
+    stage('----Create Veracode Dynamic Analysis Scan----'){
+        steps {
+           withCredentials([
+              usernamePassword(credentialsId: 'Veracode', passwordVariable: 'VeraPW', usernameVariable: 'VeraID'),
+              usernamePassword(credentialsId: 'Dynamic_Login', passwordVariable: 'Dynamic_Pass', usernameVariable: 'Dynamic_User')
+           ]){
+              sh 'python3 "$WORKSPACE/jenkins-create-da-ism-scan.py"'           
+           }
+        }
+    }
+    stage('----Veracode Dynamic Analysis Scan Now----'){
+        steps {
+           withCredentials([usernamePassword(credentialsId: 'Veracode', passwordVariable: 'VeraPW', usernameVariable: 'VeraID')]) {
+              sh 'python3 "$WORKSPACE/jenkins-update-da-scan.py"'           
+           }
+        }
+    }
+  }
+}
