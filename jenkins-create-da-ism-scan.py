@@ -90,8 +90,8 @@ data =   {
         },
         "internal_scan_configuration": {
          "enabled": True,
-         "gateway_id": gid,
-         "endpoint_id": eid
+         "gateway_id": gate,
+         "endpoint_id": end
         }
       }
     }
