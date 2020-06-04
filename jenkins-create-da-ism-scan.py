@@ -22,6 +22,8 @@ print("Dynamic Target is: " + dynamic_target)
 print("Login user is: " + login_user)
 gateway_id = os.getenv("gateway_id")
 endpoint_id = os.getenv("endpoint_id")
+print("gateway id is: " + gateway_id)
+print("endpoint id is: " + endpoint_id)
 dynamic_job = os.getenv("JOB_NAME") #Dynamic Job name will be same as Jenkins project name
 
 
@@ -88,7 +90,7 @@ data =   {
           "enabled": True,
           "gateway_id": gateway_id,
           "endpoint_id": endpoint_id
-      }
+        }
       }
     }
   ],
