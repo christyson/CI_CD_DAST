@@ -87,12 +87,12 @@ data =   {
            "authtype": "AUTO"
           }
          }
-        },
+        }},
         "internal_scan_configuration": {
          "enabled": True,
          "gateway_id": gate,
          "endpoint_id": end
-        }
+        
       }
     }
   ],
