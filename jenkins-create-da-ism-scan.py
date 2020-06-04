@@ -18,15 +18,11 @@ api_secret = os.getenv("VeraPW")
 dynamic_target = os.getenv("Dyanamic_Target")
 login_user = os.getenv("Dynamic_User")
 login_pass = os.getenv("Dynamic_Pass")
-print("Dynamic Target is: " + dynamic_target)
-print("Login user is: " + login_user)
 gateway_id = os.getenv("gateway_id")
 endpoint_id = os.getenv("endpoint_id")
-print("gateway id is: " + gateway_id)
-print("endpoint id is: " + endpoint_id)
-gate = os.getenv("gid")
-end = os.getenv("eid")
-dynamic_job = os.getenv("JOB_NAME") +"3" #Dynamic Job name will be same as Jenkins project name
+#gate = os.getenv("gid")
+#end = os.getenv("eid")
+dynamic_job = os.getenv("JOB_NAME") +"4" #Dynamic Job name will be same as Jenkins project name
 
 
 def veracode_hmac(host, url, method):
@@ -90,8 +86,8 @@ data =   {
         }},
         "internal_scan_configuration": {
          "enabled": True,
-         "gateway_id": gate,
-         "endpoint_id": end
+         "gateway_id": gateway_id,
+         "endpoint_id": endpoint_id
         
       }
     }
