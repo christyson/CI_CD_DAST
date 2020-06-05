@@ -21,7 +21,7 @@ pipeline {
         steps {
            withCredentials([
               usernamePassword(credentialsId: 'Veracode', passwordVariable: 'VeraPW', usernameVariable: 'VeraID'),
-              usernamePassword(credentialsId: 'Dynamic_Login', passwordVariable: 'Dynamic_Pass', usernameVariable: 'Dynamic_User'),
+              usernamePassword(credentialsId: 'Dynamic_Login2', passwordVariable: 'Dynamic_Pass', usernameVariable: 'Dynamic_User'),
               usernamePassword(credentialsId: 'ISM_ids', passwordVariable: 'endpoint_id', usernameVariable: 'gateway_id')
            ]){
               sh 'python3 "$WORKSPACE/jenkins-create-da-ism-scan.py"'           
