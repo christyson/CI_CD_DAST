@@ -26,7 +26,7 @@ steps:
 
 - script: |
     export Dyanamic_Target=$(DYANAMIC_TARGET)
-    export JOB_NAME=$(build.buildNumber)
+    export JOB_NAME=$(System.TeamProject)
     export VeraID=$(VERAID)
     export VeraPW=$(VERAPW)
     export Dynamic_User=$(DYNAMIC_USER)
