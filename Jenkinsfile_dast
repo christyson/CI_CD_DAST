@@ -7,7 +7,7 @@ pipeline {
   stages {
     stage ('----Pull----') {
        steps {
-          git 'https://github.com/christyson/NodeGoat_DAST'
+          git 'https://github.com/christyson/CI_CD_DAST'
        }
     }
     stage ('----pip----') {
