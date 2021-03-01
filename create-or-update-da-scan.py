@@ -114,6 +114,19 @@ except:
         sys.exit(1)
 
 # No exception so job exists
+#Payload for updating schedule of existing DA job to start now
+data =   { 
+    "schedule": 
+        {       
+            "now": True,
+            "duration": 
+                {
+                "length": 1,
+                "unit": "DAY"
+                }
+        }
+}
+
 #Update Schedule of the existing DA Job
 try:
     res = prepared_request('PUT', 'https://api.veracode.com/was/configservice/v1/analyses/' + job_id + '?method=PATCH', json=data)
