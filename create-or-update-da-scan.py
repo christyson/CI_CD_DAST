@@ -115,17 +115,49 @@ except:
 
 # No exception so job exists
 #Payload for updating schedule of existing DA job to start now
-data =   { 
-    "schedule": 
-        {       
-            "now": True,
-            "duration": 
-                {
-                "length": 1,
-                "unit": "DAY"
-                }
+#data =   { 
+#    "schedule": 
+#        {       
+#            "now": True,
+#            "duration": 
+#                {
+#                "length": 1,
+#                "unit": "DAY"
+#                }
+#        }
+#}
+
+data =   {
+  "name": dynamic_job,
+  "scans": [
+    {
+      "scan_config_request": {
+        "target_url": {
+          "url": dynamic_target,
+          "http_and_https": True,
+          "directory_restriction_type": "DIRECTORY_AND_SUBDIRECTORY"            
+       },
+       "auth_configuration": {
+         "authentications": {
+            "AUTO": {
+               "username": login_user,
+               "password": login_pass,
+               "authtype": "AUTO"
+             }
+           }
         }
+      }
+    }
+  ],
+  "schedule": {
+    "now": True,
+    "duration": {
+      "length": 1,
+      "unit": "DAY"
+    }
+  }
 }
+
 
 #Update Schedule of the existing DA Job
 try:
