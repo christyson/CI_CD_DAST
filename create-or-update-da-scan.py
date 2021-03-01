@@ -62,7 +62,7 @@ def prepared_request(method, end_point, json=None, query=None, file=None):
 
 # code above this line is reusable for all/most API calls
 
-res = prepared_request('GET','https://api.veracode.com/was/configservice/v1/platform_applications?name=' + dynamic_job + '&page=1&size=5000')
+res = prepared_request('GET','https://api.veracode.com/was/configservice/v1/platform_applications?name=' + dynamic_job + '&page=1&size=500')
 #res = prepared_request('GET','https://api.veracode.com/appsec/v1/applications/?name=' + dynamic_job)
 response = res.json()
 try:
