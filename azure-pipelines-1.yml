@@ -8,16 +8,16 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
-strategy:
-  matrix:
-    Python37:
-      python.version: '3.7'
+#strategy:
+#  matrix:
+#    Python37:
+#python.version: '3.7'
 
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '$(python.version)'
-  displayName: 'Use Python $(python.version)'
+    versionSpec: $(PYTHON_VERSION)
+  displayName: 'Use Python $(PYTHON_VERSION)'
 
 - script: |
     python -m pip install --upgrade pip
@@ -31,5 +31,6 @@ steps:
     export VeraPW=$(VERAPW)
     export Dynamic_User=$(DYNAMIC_USER)
     export Dynamic_Pass=$(DYNAMIC_PASS)
-    python jenkins-create-da-scan.py
-  displayName: 'Create and run the Dynamic Analysis'
+    python create-or-update-da-scan.py
+#    python jenkins-create-da-scan.py
+  displayName: 'Create or update and run the Dynamic Analysis'
