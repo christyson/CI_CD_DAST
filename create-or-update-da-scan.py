@@ -67,8 +67,8 @@ res = prepared_request('GET','https://api.veracode.com/was/configservice/v1/plat
 response = res.json()
 try:
     print("looked for app" + dynamic_job)
-    print(res.json)
-#    print("response is: " + response)
+    for key, value in response.items():
+        print(key, ' ', value) # this is how to see the all keys and values in dictionary(json sent by client)
 except:
     print("response failed")
     print("Error executing API Call")
