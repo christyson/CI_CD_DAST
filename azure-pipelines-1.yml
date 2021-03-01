@@ -16,7 +16,7 @@ pool:
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: $(PYTHON_VERSION)
+    versionSpec: '$(PYTHON_VERSION)'
   displayName: 'Use Python $(PYTHON_VERSION)'
 
 - script: |
