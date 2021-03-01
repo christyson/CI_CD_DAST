@@ -66,8 +66,10 @@ def prepared_request(method, end_point, json=None, query=None, file=None):
 res = prepared_request('GET','https://api.veracode.com/was/configservice/v1/platform_applications',query=("name=" + dynamic_job))
 response = res.json()
 try:
-    print("looked for app")
-    print("response is: " + res.json())
+    print("looked for app" + dynamic_job)
+    parsed = json.loads(response)
+    print(json.dumps(parsed, indent=4, sort_keys=True))
+#    print("response is: " + response)
 except:
     print("response failed")
     print("Error executing API Call")
