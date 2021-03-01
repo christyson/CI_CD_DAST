@@ -195,7 +195,6 @@ try:
     else:
         response = res.json()
         print("Error encountered: " + response['_embedded']['errors'][0]['detail'])
-        print("json is: " + response)
 except:
     print("Error executing API Call")
     sys.exit(1)
