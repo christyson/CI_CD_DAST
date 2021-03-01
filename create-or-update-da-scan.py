@@ -62,15 +62,15 @@ def prepared_request(method, end_point, json=None, query=None, file=None):
 
 # code above this line is reusable for all/most API calls
 
-
-res = prepared_request('GET','https://api.veracode.com/appsec/v1/applications/?name=' + dynamic_job)
+res = prepared_request('GET','https://api.veracode.com/was/configservice/v1/platform_applications?name=' + dynamic_job + '&page=1&size=50)
+#res = prepared_request('GET','https://api.veracode.com/appsec/v1/applications/?name=' + dynamic_job)
 response = res.json()
 try:
     print("looked for app" + dynamic_job)
     for key, value in response.items():
         print(key, ' ', value) # this is how to see the all keys and values in dictionary(json sent by client)
-    uuid = response['_embedded']['platform_applications']['uuid']
-    print("uuid is: " + uuid)
+    #uuid = response['_embedded']['platform_applications']['uuid']
+    #print("uuid is: " + uuid)
 except:
     print("response failed")
     print("Error executing API Call")
