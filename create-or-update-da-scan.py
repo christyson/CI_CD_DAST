@@ -143,9 +143,9 @@ print("Found the Dynamic Analysis - " + dynamic_job)
 try:
     print("Get the Dynamic Analysis scans for job_id - " + job_id)
     res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/analyses/' + job_id + '/scans')
-    
+    response = res.json()
+   
     if res.status_code == 200:
-        response = res.json()
         body = response.get_json() # returns a dictionary
         for key, value in body.items():
             print(key, ' ', value) # this is how to see the all keys and values in dictionary(json sent by client)
@@ -156,7 +156,9 @@ try:
         print("Error encountered: " + response['_embedded']['errors'][0]['detail'])
         sys.exit(1)
 except:
+    response = res.json()
     print("Error executing API Call")
+    print("Error encountered: " + response['_embedded']['errors'][0]['detail'])
     sys.exit(1)
 
 data =   {
