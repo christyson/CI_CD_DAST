@@ -161,7 +161,7 @@ data =   {
 # First delete the original analysis
 
 try:
-    res = prepared_request('PUT', 'https://api.veracode.com/was/configservice/v1/analyses/' + job_id)
+    res = prepared_request('DELETE', 'https://api.veracode.com/was/configservice/v1/analyses/' + job_id)
     if res.status_code == 204:
         print("Analysis deleted sucessfully: " + str(res.status_code) )
     else:
