@@ -68,7 +68,6 @@ response = res.json()
 try:
     print("looked for app" + dynamic_job)
     result_json = json.dumps(res.json)
-    print(json.dumps(parsed, indent=4, sort_keys=True))
     print(result_json)
 #    print("response is: " + response)
 except:
