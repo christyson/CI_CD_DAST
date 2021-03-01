@@ -150,7 +150,7 @@ try:
         #body = response.get_json() # returns a dictionary
         for key, value in response.items():
             print(key, ' ', value) # this is how to see the all keys and values in dictionary(json sent by client)
-        scan_id = response['_embedded']['scans']['scan_occurrences']['scan_id']
+        scan_id = response['_embedded']['scans'][0]['scan_id']
         print("scan id is: " + scan_id)
     else:
         response = res.json()
