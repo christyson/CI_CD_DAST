@@ -142,7 +142,7 @@ print("Found the Dynamic Analysis - " + dynamic_job)
 
 try:
     print("Get the Dynamic Analysis scans for job_id - " + job_id)
-    res = prepared_request('PUT', 'https://api.veracode.com/was/configservice/v1/analyses/' + job_id + '/scans')
+    res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/analyses/' + job_id + '/scans')
     
     if res.status_code == 200:
         response = res.json()
