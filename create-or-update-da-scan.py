@@ -138,6 +138,7 @@ data =   {
           "http_and_https": True,
           "directory_restriction_type": "DIRECTORY_AND_SUBDIRECTORY"            
        },
+       "action_type": "UPDATE_CLOBBER",
        "auth_configuration": {
          "authentications": {
             "AUTO": {
@@ -147,7 +148,6 @@ data =   {
              }
            }
         }.
-        "action_type": "UPDATE_CLOBBER"
       }
     }
   ],
