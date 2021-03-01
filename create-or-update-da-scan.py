@@ -69,7 +69,7 @@ res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/ana
 response = res.json()
 try:
     job_id = response['_embedded']['analyses'][0]['analysis_id']
-#    analysis_id = response[
+    print("Found the Dynamic Analysis - " + dynamic_job)
 except: 
     print("Could not find Dynamic Analysis - Create one")
     #Payload for creating and scheduling new DA job
