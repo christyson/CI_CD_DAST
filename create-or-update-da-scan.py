@@ -63,6 +63,16 @@ def prepared_request(method, end_point, json=None, query=None, file=None):
 # code above this line is reusable for all/most API calls
 
 
+res = prepared_request('GET','https://api.veracode.com/was/configservice/v1/platform_applications',query=("name=" + dynamic_job))
+response = res.json()
+try:
+    print("looked for app")
+    print("response is: " + res.json())
+except:
+    print("response failed")
+    print("Error executing API Call")
+    sys.exit(1)
+
 print("Looking for Dynamic Analysis Job: " + dynamic_job )
 #Retrieve DA Job ID by project name
 res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/analyses', query=("name=" + dynamic_job))
@@ -71,13 +81,6 @@ try:
     job_id = response['_embedded']['analyses'][0]['analysis_id']
 except: 
     print("Could not find Dynamic Analysis - Create one")
-    res = prepared_request('GET','https://api.veracode.com/was/configservice/v1/platform_applications',query=("name=" + dynamic_job))
-    response = res.json()
-     try:
-        print("looked for app")
-        print("response is: " + res.json())
-     except:
-        print("response failed")
     #Payload for creating and scheduling new DA job
     data =   {
       "name": dynamic_job,
