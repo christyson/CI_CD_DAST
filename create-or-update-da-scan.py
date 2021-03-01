@@ -150,11 +150,11 @@ try:
         #body = response.get_json() # returns a dictionary
         for key, value in response.items():
             print(key, ' ', value) # this is how to see the all keys and values in dictionary(json sent by client)
-        sys.exit(0)
+        scan_id = response['_embedded']['scans']['scan_id']
+        print("scan id is: " + scan_id)
     else:
         response = res.json()
         print("Error encountered: " + response['_embedded']['errors'][0]['detail'])
-        sys.exit(1)
 except:
     response = res.json()
     print("Error executing API Call")
