@@ -22,7 +22,6 @@ print("Dynamic Target is: " + dynamic_target)
 print("Login user is: " + login_user)
 dynamic_job = os.getenv("JOB_NAME") #Dynamic Job name will be same as environment variable
 
-
 def veracode_hmac(host, url, method):
     signing_data = 'id={api_id}&host={host}&url={url}&method={method}'.format(
                     api_id=api_id.lower(),
@@ -62,21 +61,18 @@ def prepared_request(method, end_point, json=None, query=None, file=None):
 
 # code above this line is reusable for all/most API calls
 
-#res = prepared_request('GET','https://api.veracode.com/was/configservice/v1/platform_applications?name=' + dynamic_job + '&page=3&size=50')
 res = prepared_request('GET','https://api.veracode.com/appsec/v1/applications/?name=' + dynamic_job)
 response = res.json()
 try:
     print("looked for app" + dynamic_job)
-    for key, value in response.items():
-        print(key, ' ', value) # this is how to see the all keys and values in dictionary(json sent by client)
     uuid = response['_embedded']['applications'][0]['guid']
-    print("uuid is: " + uuid)
 except:
     print("response failed")
     print("Error executing API Call")
     sys.exit(1)
 
 print("Looking for Dynamic Analysis Job: " + dynamic_job )
+
 #Retrieve DA Job ID by project name
 res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/analyses', query=("name=" + dynamic_job))
 response = res.json()
@@ -122,6 +118,7 @@ except:
 
     if res.status_code == 201:
         print("Job Created and Submitted Successfully: " + str(res.status_code))
+        sys.exit(0)
     else:
         response = res.json()
         print("Error encountered: " + response['_embedded']['errors'][0]['detail'])
@@ -142,6 +139,25 @@ except:
 #}
 
 print("Found the Dynamic Analysis - " + dynamic_job)
+
+try:
+    print("Get the Dynamic Analysis scans for job_id - " + job_id)
+    res = prepared_request('PUT', 'https://api.veracode.com/was/configservice/v1/analyses/' + job_id + '/scans')
+    
+    if res.status_code == 200:
+        response = res.json()
+        body = response.get_json() # returns a dictionary
+        for key, value in body.items():
+            print(key, ' ', value) # this is how to see the all keys and values in dictionary(json sent by client)
+        print("Scans found: " + str(res.status_code) )
+        sys.exit(0)
+    else:
+        response = res.json()
+        print("Error encountered: " + response['_embedded']['errors'][0]['detail'])
+        sys.exit(1)
+except:
+    print("Error executing API Call")
+    sys.exit(1)
 
 data =   {
   "name": dynamic_job,
