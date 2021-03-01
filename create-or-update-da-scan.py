@@ -147,7 +147,7 @@ data =   {
                "authtype": "AUTO"
              }
            }
-        }.
+        }
       }
     }
   ],
