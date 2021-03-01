@@ -69,7 +69,7 @@ try:
     print("looked for app" + dynamic_job)
     for key, value in response.items():
         print(key, ' ', value) # this is how to see the all keys and values in dictionary(json sent by client)
-    uuid = response['_embedded']['applications']['guid']
+    uuid = response['_embedded']['applications'][0]['guid']
     print("uuid is: " + uuid)
 except:
     print("response failed")
