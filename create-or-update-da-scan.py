@@ -148,7 +148,7 @@ data =   {
            }
         }
       },
-      "action_type": "UPDATE_CLOBBER"
+      "action_type": "UPDATE_SELECTIVE"
     }
   ],
   "schedule": {
