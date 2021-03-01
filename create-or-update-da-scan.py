@@ -89,6 +89,7 @@ except:
       "name": dynamic_job,
       "scans": [
         {
+          "linked_platform_app_uuid": uuid,  
           "scan_config_request": {
             "target_url": {
               "url": dynamic_target,
