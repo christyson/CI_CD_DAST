@@ -69,7 +69,6 @@ res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/ana
 response = res.json()
 try:
     job_id = response['_embedded']['analyses'][0]['analysis_id']
-    print("Found the Dynamic Analysis - " + dynamic_job)
 except: 
     print("Could not find Dynamic Analysis - Create one")
     #Payload for creating and scheduling new DA job
@@ -127,6 +126,8 @@ except:
 #                }
 #        }
 #}
+
+print("Found the Dynamic Analysis - " + dynamic_job)
 
 data =   {
   "name": dynamic_job,
@@ -187,12 +188,14 @@ try:
 #        print("Error encountered: " + response['_embedded']['errors'][0]['detail'])
 #        sys.exit(1)
 
+    print("About to update the Dynamic Analysis - " + dynamic_job + "job_id - " + job_id)
     res = prepared_request('PUT', 'https://api.veracode.com/was/configservice/v1/analyses/' + job_id + '?method=PATCH', json=data)
     if res.status_code == 204:
         print("Scan Submitted Successfully: " + str(res.status_code) )
     else:
         response = res.json()
         print("Error encountered: " + response['_embedded']['errors'][0]['detail'])
+        print("json is: " + response)
 except:
     print("Error executing API Call")
     sys.exit(1)
