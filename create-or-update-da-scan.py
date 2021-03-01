@@ -69,6 +69,7 @@ res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/ana
 response = res.json()
 try:
     job_id = response['_embedded']['analyses'][0]['analysis_id']
+#    analysis_id = response[
 except: 
     print("Could not find Dynamic Analysis - Create one")
     #Payload for creating and scheduling new DA job
@@ -166,6 +167,7 @@ try:
         print("Analysis deleted sucessfully: " + str(res.status_code) )
     else:
         response = res.json()
+        print("Analysis failed to delete: " + str(res.status_code) )
         print("Error encountered: " + response['_embedded']['errors'][0]['detail'])
 except:
     print("Error executing API Call")
