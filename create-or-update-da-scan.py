@@ -146,10 +146,10 @@ try:
     response = res.json()
    
     if res.status_code == 200:
-        body = response.get_json() # returns a dictionary
-        for key, value in body.items():
-            print(key, ' ', value) # this is how to see the all keys and values in dictionary(json sent by client)
         print("Scans found: " + str(res.status_code) )
+        #body = response.get_json() # returns a dictionary
+        for key, value in response.items():
+            print(key, ' ', value) # this is how to see the all keys and values in dictionary(json sent by client)
         sys.exit(0)
     else:
         response = res.json()
