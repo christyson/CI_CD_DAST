@@ -63,7 +63,7 @@ def prepared_request(method, end_point, json=None, query=None, file=None):
 # code above this line is reusable for all/most API calls
 
 
-res = prepared_request('GET','https://api.veracode.com/was/configservice/v1/platform_applications',query=("name=" + dynamic_job))
+res = prepared_request('GET','https://api.veracode.com/was/configservice/v1/platform_applications/?name=' + dynamic_job)
 response = res.json()
 try:
     print("looked for app" + dynamic_job)
