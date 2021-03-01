@@ -67,8 +67,9 @@ res = prepared_request('GET','https://api.veracode.com/was/configservice/v1/plat
 response = res.json()
 try:
     print("looked for app" + dynamic_job)
-    parsed = json.loads(response)
+    result_json = json.dumps(res.json)
     print(json.dumps(parsed, indent=4, sort_keys=True))
+    print(result_json)
 #    print("response is: " + response)
 except:
     print("response failed")
