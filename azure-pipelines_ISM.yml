@@ -23,7 +23,7 @@ steps:
   displayName: 'Install dependencies'
 
 - script: |
-    export Dyanamic_Target=$(DYNAMIC_TARGET)
+    export Dynamic_Target=$(DYNAMIC_TARGET)
     export JOB_NAME='$(system.teamProject)_ADO_yaml'
     export VeraID=$(VERAID)
     export VeraPW=$(VERAPW)
