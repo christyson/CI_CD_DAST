@@ -165,6 +165,8 @@ data =   {
   "name": dynamic_job,
   "scans": [
     {
+      "scan_id": scan_id,  
+      "action_type": "UPDATE_CLOBBER",
       "scan_config_request": {
         "target_url": {
           "url": dynamic_target,
@@ -180,8 +182,7 @@ data =   {
              }
            }
         }
-      },
-      "action_type": "UPDATE_SELECTIVE"
+      }
     }
   ],
   "schedule": {
