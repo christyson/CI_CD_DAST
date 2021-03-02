@@ -1,7 +1,4 @@
-# Python package
-# Create and test a Python package on multiple Python versions.
-# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+# Demo pipeline to conduct a Veracod Dynamic Analysis Scan (create or update)
 
 trigger:
 #- master
@@ -11,14 +8,14 @@ pool:
   vmImage: ubuntu-latest
 strategy:
   matrix:
-    Python37:
+    DAST_SCAN:
       python.version: '3.7'
 
 steps:
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '$(python.version)'
-  displayName: 'Use Python $(python.version)'
+  displayName: 'Setup Veracod Dynamic Analysis Scan'
 
 - script: |
     python -m pip install --upgrade pip
@@ -26,12 +23,11 @@ steps:
   displayName: 'Install dependencies'
 
 - script: |
-    export Dyanamic_Target=$(DYANAMIC_TARGET)
+    export Dynamic_Target=$(DYNAMIC_TARGET)
     export JOB_NAME='$(system.teamProject)_ADO_yaml'
     export VeraID=$(VERAID)
     export VeraPW=$(VERAPW)
     export Dynamic_User=$(DYNAMIC_USER)
     export Dynamic_Pass=$(DYNAMIC_PASS)
     python create-or-update-da-scan.py
-#    python jenkins-create-da-scan.py
   displayName: 'Create or update and run the Dynamic Analysis'
