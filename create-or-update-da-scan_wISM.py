@@ -83,42 +83,43 @@ try:
 except: 
     print("Could not find Dynamic Analysis - Create one")
     #Payload for creating and scheduling new DA job
-data={
-  "name": dynamic_job,
-  "scans": [
-    {
-      "linked_platform_app_uuid": uuid,
-      "scan_config_request": {
-        "target_url": {
-          "url": dynamic_target,
-          "http_and_https": True,
-          "directory_restriction_type": "DIRECTORY_AND_SUBDIRECTORY"
-        },
-        "auth_configuration": {
-          "authentications": {
-            "AUTO": {
-              "username": login_user,
-              "password": login_pass,
-              "authtype": "AUTO"
+    data={
+      "name": dynamic_job,
+      "scans": [
+        {
+          "linked_platform_app_uuid": uuid,
+          "scan_config_request": {
+            "target_url": {
+              "url": dynamic_target,
+              "http_and_https": True,
+              "directory_restriction_type": "DIRECTORY_AND_SUBDIRECTORY"
+            },
+            "auth_configuration": {
+              "authentications": {
+                "AUTO": {
+                  "username": login_user,
+                  "password": login_pass,
+                  "authtype": "AUTO"
+                }
+              }
+            },
+            "internal_scan_configuration": {
+            "enabled": true,
+            "gateway_id": gateway_id,
+            "endpoint_id": endpoint_id
             }
           }
-        },
-        "internal_scan_configuration": {
-        "enabled": true,
-        "gateway_id": gateway_id,
-        "endpoint_id": endpoint_id
+        }
+      ],
+      "schedule": {
+        "now": True,
+        "duration": {
+          "length": 1,
+          "unit": "DAY"
         }
       }
     }
-  ],
-  "schedule": {
-    "now": True,
-    "duration": {
-      "length": 1,
-      "unit": "DAY"
-    }
-  }
-}
+    
     print("Creating a new Dynamic Analysis Job: " + dynamic_job )
     res = prepared_request('POST', 'https://api.veracode.com/was/configservice/v1/analyses', json=data)
 
