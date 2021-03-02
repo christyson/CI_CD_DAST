@@ -4,7 +4,8 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
 
 trigger:
-- master
+#- master
+- none
 
 pool:
   vmImage: ubuntu-latest
