@@ -1,0 +1,35 @@
+# Demo pipeline to conduct a Veracod Dynamic Analysis Scan using ISM (create or update)
+
+trigger:
+#- master
+- none
+
+pool:
+  vmImage: ubuntu-latest
+strategy:
+  matrix:
+    Python37:
+      python.version: '3.7'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '$(python.version)'
+  displayName: 'Use Python $(python.version)'
+
+- script: |
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+  displayName: 'Install dependencies'
+
+- script: |
+    export Dyanamic_Target=$(DYANAMIC_TARGET)
+    export JOB_NAME='$(system.teamProject)_ADO_yaml'
+    export VeraID=$(VERAID)
+    export VeraPW=$(VERAPW)
+    export Dynamic_User=$(DYNAMIC_USER)
+    export Dynamic_Pass=$(DYNAMIC_PASS)
+    export gateway_id=$(GATEWAY_ID)
+    export endpoint_id=$(ENDPOINT_ID)
+    python create-or-update-da-scan_wISM.py
+  displayName: 'Create or update and run the Dynamic Analysis using ISM'
