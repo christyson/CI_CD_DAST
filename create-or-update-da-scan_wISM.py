@@ -186,6 +186,11 @@ data =   {
              }
            }
         }
+      },
+      "internal_scan_configuration": {
+        "enabled": true,
+        "gateway_id": gateway_id,
+        "endpoint_id": endpoint_id
       }
     }
   ],
