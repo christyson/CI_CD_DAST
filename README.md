@@ -3,7 +3,7 @@
 Example Integrations for Veracode DAST into CI/CD Systems.
 
 # create-or-update-da-scan.py
-### An example that creates or updates a Dynamic Analysis for authenticated public sites
+#### An example that creates or updates a Dynamic Analysis for authenticated public sites
 
 The script relies on environment variables to direct it.  These can be created in your CI/CD system.  It specifically needs:
 
@@ -21,7 +21,7 @@ The example also assumes the web site can work with Veracode's Dynamic Analysis 
 To create your Veracode ID/Secret Key you can look here: https://help.veracode.com/r/c_api_credentials3
 
 # create-or-update-da-scan_wISM.py
-### An example that creates or updates a Dynamic Analysis using Veracodes Interanl Scanning Management for authenticated sites behind the firewall
+#### An example that creates or updates a Dynamic Analysis using Veracodes Internal Scanning Management for authenticated sites behind the firewall
 
 The script relies on environment variables to direct it.  These can be created in your CI/CD system.  It specifically needs:
 
