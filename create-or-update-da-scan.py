@@ -125,7 +125,7 @@ except:
         sys.exit(1)
 
 # No exception so job exists
-#Payload for updating schedule of existing DA job to start now
+#Payload for updating schedule of existing DA job to start a new one now
 #data =   { 
 #    "schedule": 
 #        {       
@@ -139,7 +139,7 @@ except:
 #}
 
 print("Found the Dynamic Analysis - " + dynamic_job)
-
+# Find the scan id to update the scan in the analysis
 try:
     print("Get the Dynamic Analysis scans for job_id - " + job_id)
     res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/analyses/' + job_id + '/scans')
@@ -147,9 +147,6 @@ try:
    
     if res.status_code == 200:
         print("Scans found: " + str(res.status_code) )
-        #body = response.get_json() # returns a dictionary
-        for key, value in response.items():
-            print(key, ' ', value) # this is how to see the all keys and values in dictionary(json sent by client)
         scan_id = response['_embedded']['scans'][0]['scan_id']
         print("scan id is: " + scan_id)
     else:
@@ -194,32 +191,8 @@ data =   {
   }
 }
 
-# First delete the original analysis
-
-#try:
-#    res = prepared_request('DELETE', 'https://api.veracode.com/was/configservice/v1/analyses/' + job_id)
-#    if res.status_code == 204:
-#        print("Analysis deleted sucessfully: " + str(res.status_code) )
-#    else:
-#        response = res.json()
-#        print("Analysis failed to delete: " + str(res.status_code) )
-#        print("Error encountered: " + response['_embedded']['errors'][0]['detail'])
-#except:
-#    print("Error executing API Call")
-#    sys.exit(1)
-
-#Now create the job over
 #Update Schedule of the existing DA Job
 try:
-#    print("Creating a new Dynamic Analysis Job: " + dynamic_job )
-#    res = prepared_request('POST', 'https://api.veracode.com/was/configservice/v1/analyses', json=data)
-#
-#    if res.status_code == 201:
-#        print("Job Created and Submitted Successfully: " + str(res.status_code))
-#    else:
-#        response = res.json()
-#        print("Error encountered: " + response['_embedded']['errors'][0]['detail'])
-#        sys.exit(1)
 
     print("About to update the Dynamic Analysis - " + dynamic_job + "job_id - " + job_id)
     res = prepared_request('PUT', 'https://api.veracode.com/was/configservice/v1/analyses/' + job_id + '?method=PATCH', json=data)
