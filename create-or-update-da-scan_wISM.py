@@ -102,12 +102,12 @@ except:
                   "authtype": "AUTO"
                 }
               }
-            },
-            "internal_scan_configuration": {
-              "enabled": True,
-              "gateway_id": gateway_id,
-              "endpoint_id": endpoint_id
             }
+          },
+          "internal_scan_configuration": {
+            "enabled": True,
+            "gateway_id": gateway_id,
+            "endpoint_id": endpoint_id
           }
         }
       ],
@@ -185,12 +185,12 @@ data =   {
               "authtype": "AUTO"
             }
           }
-        },
-        "internal_scan_configuration": {
-          "enabled": True,
-          "gateway_id": gateway_id,
-          "endpoint_id": endpoint_id
         }
+      },
+      "internal_scan_configuration": {
+        "enabled": True,
+        "gateway_id": gateway_id,
+        "endpoint_id": endpoint_id
       }
     }
   ],
