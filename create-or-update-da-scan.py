@@ -15,7 +15,7 @@ from urllib.parse import urlparse
 #Jenkins:
 api_id = os.getenv("VeraID")
 api_secret = os.getenv("VeraPW")
-dynamic_target = os.getenv("Dyanamic_Target")
+dynamic_target = os.getenv("Dynamic_Target")
 login_user = os.getenv("Dynamic_User")
 login_pass = os.getenv("Dynamic_Pass")
 print("Dynamic Target is: " + dynamic_target)
