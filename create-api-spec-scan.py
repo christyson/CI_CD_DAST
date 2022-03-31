@@ -68,14 +68,15 @@ res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/api
 response = res.json()
 try:
     spec_id = response['_embedded']['api_specs'][0]['spec_id']
-    print("API Specification located Successfully: " + str(res.status_code) + "API Specification ID is: " + spec_id)
+    print("API Specification located Successfully: " + str(res.status_code) + " API Specification ID is: " + spec_id)
     
     #found update it
     print("Updating the API Specification")
     try:
        #Upload API spec to Veracode platform:
 
-       res = prepared_request('PUT', 'https://api.veracode.com/was/configservice/v1/api_specifications/'+spec_id, json=None, query=query_params, file=spec_file)
+       target = "https://api.veracode.com/was/configservice/v1/api_specifications/" + spec_id
+       res = prepared_request('PUT', target, json=None, query=query_params, file=spec_file)
        if res.status_code == 200:
            response = res.json()
            #spec_id = response['spec_id']
