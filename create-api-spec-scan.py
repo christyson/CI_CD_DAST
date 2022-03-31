@@ -75,7 +75,7 @@ try:
     try:
        #Upload API spec to Veracode platform:
 
-       res = prepared_request('POST', 'https://api.veracode.com/was/configservice/v1/api_specifications/'+spec_id, json=None, query=query_params, file=spec_file)
+       res = prepared_request('PUT', 'https://api.veracode.com/was/configservice/v1/api_specifications/'+spec_id, json=None, query=query_params, file=spec_file)
        if res.status_code == 200:
            response = res.json()
            spec_id = response['spec_id']
