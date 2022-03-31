@@ -15,7 +15,7 @@ steps:
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '$(python.version)'
-  displayName: 'Setup Veracod Dynamic Analysis API Scan'
+  displayName: 'Setup Veracode Dynamic Analysis API Scan'
 
 - script: |
     python -m pip install --upgrade pip
@@ -28,7 +28,7 @@ steps:
 - script: |
     export Dynamic_Target=$(DYNAMIC_TARGET)
     export JOB_NAME='$(system.teamProject)_ADO_yaml'
-    export PIPELINE_ID=($Build.BuildNumber)
+    export PIPELINE_ID=$(Build.BuildNumber)
     export VERACODE_ID=$(VERAID)
     export VERACODE_KEY=$(VERAPW)
     export API_FILE='petstore-template.har'
