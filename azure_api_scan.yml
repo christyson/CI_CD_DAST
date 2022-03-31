@@ -1,0 +1,36 @@
+# Demo pipeline to conduct a Veracod Dynamic Analysis Scan (create or update)
+
+trigger:
+#- master
+- none
+
+pool:
+  vmImage: ubuntu-latest
+strategy:
+  matrix:
+    DAST_SCAN:
+      python.version: '3.7'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '$(python.version)'
+  displayName: 'Setup Veracod Dynamic Analysis API Scan'
+
+- script: |
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+  displayName: 'Install dependencies'
+
+- script: |
+    export Dynamic_Target=$(DYNAMIC_TARGET)
+    export JOB_NAME='$(system.teamProject)_ADO_yaml'
+    export PIPELINE_ID=($Build.BuildNumber)
+    export VERACODE_ID=$(VERAID)
+    export VERACODE_KEY=$(VERAPW)
+    export API_FILE='petstore-template.har'
+    export API_NAME='Petstore API'
+    export Dynamic_User=$(DYNAMIC_USER)
+    export Dynamic_Pass=$(DYNAMIC_PASS)
+    python create-api-spec-scan.py
+  displayName: 'Create or update and run a Dynamic Analysis API Scan'
