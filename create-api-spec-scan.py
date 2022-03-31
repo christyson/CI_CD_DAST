@@ -78,9 +78,9 @@ try:
        res = prepared_request('PUT', 'https://api.veracode.com/was/configservice/v1/api_specifications/'+spec_id, json=None, query=query_params, file=spec_file)
        if res.status_code == 200:
            response = res.json()
-           spec_id = response['spec_id']
+           #spec_id = response['spec_id']
            print("API Specification Uploaded Successfully: " + str(res.status_code))
-           print("API Specification ID Created: " + spec_id)
+           print("API Specification ID updated: " + spec_id)
     
            #Payload for scheduling the API analysis job:
 
