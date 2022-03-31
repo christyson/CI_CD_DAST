@@ -60,7 +60,7 @@ def prepared_request(method, end_point, json=None, query=None, file=None):
 # code above this line is reusable for all/most API calls
 
 
-query_params = "spec_name= " + spec_name
+query_params = "spec_name=" + spec_name
 spec_file = {'file': open(api_spec,'rb')}
 
 #Retrieve API Spec ID by API Spec name
