@@ -31,7 +31,7 @@ steps:
     export PIPELINE_ID=$(Build.BuildNumber)
     export VERACODE_ID=$(VERAID)
     export VERACODE_KEY=$(VERAPW)
-    export API_FILE='petstore-template.har'
-    export API_NAME='Petstore API'
+    export API_FILE=$(API_FILE)
+    export API_NAME=$(API_NAME)
     python create-api-spec-scan.py
   displayName: 'Create or update and run a Dynamic Analysis API Scan'
