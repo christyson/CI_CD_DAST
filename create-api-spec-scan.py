@@ -15,8 +15,10 @@ from urllib.parse import urlparse
 #GitLab:
 api_id = os.getenv("VERACODE_ID")
 api_secret = os.getenv("VERACODE_KEY")
-dynamic_job = os.getenv("CI_PROJECT_NAME") + " BRANCH Commit, pipeline ID: " + os.getenv("CI_PIPELINE_ID") #Dynamic Job name will be same as GitLab project name and pipeline ID
-
+dynamic_job = os.getenv("JOB_NAME") + " BRANCH Commit, pipeline ID: " + os.getenv("PIPELINE_ID") #Dynamic Job name will be same as GitLab project name and pipeline ID
+api_spec = os.getenv("API_FILE")
+spec_name = os.getenv("API_NAME")
+dynamic_target = os.getenv("Dynamic_Target")
 
 def veracode_hmac(host, url, method):
     signing_data = 'id={api_id}&host={host}&url={url}&method={method}'.format(
@@ -58,8 +60,8 @@ def prepared_request(method, end_point, json=None, query=None, file=None):
 # code above this line is reusable for all/most API calls
 
 
-query_params = "spec_name=Verademo API Specification " + os.getenv("CI_PIPELINE_ID")
-spec_file = {'file': open('public/swagger.json','rb')}
+query_params = "spec_name= " + spec_name
+spec_file = {'file': open(api_spec,'rb')}
 
 
 print("Creating a new API Specification")
@@ -86,7 +88,7 @@ try:
                     {
                         "target_url":
                         {
-                            "url": "http://aszaryk-mbp2:8000"
+                            "url": dynamic_target
                         },
                         "api_scan_setting":
                         {
