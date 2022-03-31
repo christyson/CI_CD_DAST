@@ -8,7 +8,7 @@ pool:
   vmImage: ubuntu-latest
 strategy:
   matrix:
-    DAST_SCAN:
+    DAST_API_SCAN:
       python.version: '3.7'
 
 steps:
