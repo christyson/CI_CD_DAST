@@ -22,6 +22,9 @@ steps:
     pip install -r requirements.txt
   displayName: 'Install dependencies'
 
+ #   export Dynamic_User=$(DYNAMIC_USER)
+ #   export Dynamic_Pass=$(DYNAMIC_PASS)
+
 - script: |
     export Dynamic_Target=$(DYNAMIC_TARGET)
     export JOB_NAME='$(system.teamProject)_ADO_yaml'
@@ -30,7 +33,5 @@ steps:
     export VERACODE_KEY=$(VERAPW)
     export API_FILE='petstore-template.har'
     export API_NAME='Petstore API'
-    export Dynamic_User=$(DYNAMIC_USER)
-    export Dynamic_Pass=$(DYNAMIC_PASS)
     python create-api-spec-scan.py
   displayName: 'Create or update and run a Dynamic Analysis API Scan'
