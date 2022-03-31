@@ -69,6 +69,67 @@ response = res.json()
 try:
     spec_id = response['_embedded']['api_specs'][0]['spec_id']
     print("API Specification located Successfully: " + str(res.status_code) + "API Specification ID is: " + spec_id)
+    
+    #found update it
+    print("Updating the API Specification")
+    try:
+       #Upload API spec to Veracode platform:
+
+       res = prepared_request('POST', 'https://api.veracode.com/was/configservice/v1/api_specifications/'+spec_id', json=None, query=query_params, file=spec_file)
+       if res.status_code == 200:
+           response = res.json()
+           spec_id = response['spec_id']
+           print("API Specification Uploaded Successfully: " + str(res.status_code))
+           print("API Specification ID Created: " + spec_id)
+    
+           #Payload for scheduling the API analysis job:
+
+           data =   {
+               "name": dynamic_job,
+               "scans":
+               [
+                   {
+                       "action_type": "ADD",
+                       "request_id": "0",
+                       "scan_config_request":
+                       {
+                           "target_url":
+                           {
+                               "url": dynamic_target
+                           },
+                           "api_scan_setting":
+                           {
+                               "spec_id": spec_id,
+                           }
+                       }
+                   }
+               ],
+               "visibility":
+               {
+                   "setup_type": "SEC_LEADS_ONLY",
+                   "team_identifiers":
+                   []
+               },
+             "schedule": {
+               "now": True,
+               "duration": {
+                 "length": 1,
+                 "unit": "DAY"
+               }
+             }
+           }
+        
+           #Add API Spec to dynamic analysis and start scan:
+        
+           job_options = 'run_verification=false&scan_type=API_SCAN'
+           print("Creating new API Scan Job: "+ dynamic_job )
+           res2 = prepared_request('POST', 'https://api.veracode.com/was/configservice/v1/analyses', json=data, query=job_options)
+
+       else:
+           response = res.json()
+           print("Error encountered: " + response['_embedded']['errors'][0]['detail'] + " Error: " + response['_embedded']['errors'][0]['meta']['invalid_spec_error']['error_type'])
+           sys.exit(1)    
+    
 except:
     #not found create a new one
     print("Creating a new API Specification")
