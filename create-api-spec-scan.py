@@ -129,9 +129,9 @@ try:
            response = res.json()
            print("Error encountered: " + response['_embedded']['errors'][0]['detail'] + " Error: " + response['_embedded']['errors'][0]['meta']['invalid_spec_error']['error_type'])
            sys.exit(1)
-       except:
-           print("Error has occurred")
-           sys.exit(1)
+    except:
+        print("Error has occurred")
+        sys.exit(1)
 except:
     #not found create a new one
     print("Creating a new API Specification")
