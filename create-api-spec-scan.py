@@ -130,7 +130,7 @@ try:
        else:
            response = res.json()
            print("Return code == " + str(res.status_code))
-           print("response is " + str(res))
+           print("response is " + str(response))
            print("Error encountered: " + response['_embedded']['errors'][0]['detail'] + " Error: " + response['_embedded']['errors'][0]['meta']['invalid_spec_error']['error_type'])
            sys.exit(1)
     except:
