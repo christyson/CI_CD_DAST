@@ -77,6 +77,7 @@ try:
 
        target = "https://api.veracode.com/was/configservice/v1/api_specifications/" + spec_id
        res = prepared_request('PUT', target, json=None, query=query_params, file=spec_file)
+       print("Return code == " + str(res.status_code))
        if res.status_code == 200:
            response = res.json()
            #spec_id = response['spec_id']
@@ -128,7 +129,7 @@ try:
 
        else:
            response = res.json()
-           print("Return code == " + str(res.status_code)
+           print("Return code == " + str(res.status_code))
            print("Error encountered: " + response['_embedded']['errors'][0]['detail'] + " Error: " + response['_embedded']['errors'][0]['meta']['invalid_spec_error']['error_type'])
            sys.exit(1)
     except:
