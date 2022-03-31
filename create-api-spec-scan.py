@@ -63,7 +63,18 @@ def prepared_request(method, end_point, json=None, query=None, file=None):
 query_params = "spec_name= " + spec_name
 spec_file = {'file': open(api_spec,'rb')}
 
-
+#Retrieve API Spec ID by API Spec name
+res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/api_specifications', query=("spec_name=" + spec_name))
+response = res.json()
+try:
+    spec_id = response['_embedded']['api_specs'][0]['spec_id']
+    print("API Specification located Successfully: " + str(res.status_code) + "API Specification ID is: " + spec_id)
+    sys.exit(1)
+except:
+    response = res.json()
+    print("Error encountered: " + response['_embedded']['errors'][0]['detail'] + " Error: " + response['_embedded']['errors'][0]['meta']['invalid_spec_error']['error_type'])
+    sys.exit(1)
+    
 print("Creating a new API Specification")
 try:
     #Upload API spec to Veracode platform:
