@@ -15,7 +15,7 @@ from urllib.parse import urlparse
 #GitLab:
 api_id = os.getenv("VERACODE_ID")
 api_secret = os.getenv("VERACODE_KEY")
-dynamic_job = os.getenv("JOB_NAME") + " BRANCH Commit, pipeline ID: " + os.getenv("PIPELINE_ID") #Dynamic Job name will be same as GitLab project name and pipeline ID
+dynamic_job = os.getenv("JOB_NAME") + " BRANCH Commit, pipeline ID: " + os.getenv("PIPELINE_ID") #Dynamic Job name will be same as the provided JOB_NAME name and PIPELINE_ID
 api_spec = os.getenv("API_FILE")
 spec_name = os.getenv("API_NAME")
 dynamic_target = os.getenv("Dynamic_Target")
@@ -56,9 +56,65 @@ def prepared_request(method, end_point, json=None, query=None, file=None):
     res = session.send(prepared_request)
 
     return res
-
+    
 # code above this line is reusable for all/most API calls
 
+def create_scan(dynamic_job,dynamic_target,spec_id):
+
+    #Payload for scheduling the API analysis job:
+
+    data =   {
+        "name": dynamic_job,
+        "scans":
+        [
+            {
+                "action_type": "ADD",
+                "request_id": "0",
+                "scan_config_request":
+                {
+                    "target_url":
+                    {
+                        "url": dynamic_target
+                    },
+                    "api_scan_setting":
+                    {
+                        "spec_id": spec_id,
+                    }
+                }
+            }
+        ],
+        "visibility":
+        {
+            "setup_type": "SEC_LEADS_ONLY",
+            "team_identifiers":
+            []
+        },
+        "schedule": {
+            "now": True,
+            "duration": 
+            {
+                "length": 1,
+                "unit": "DAY"
+            }
+        }
+    }
+        
+    #Add API Spec to dynamic analysis and start scan:
+        
+    job_options = 'run_verification=false&scan_type=API_SCAN'
+    print("Creating new API Scan Job: "+ dynamic_job )
+    res2 = prepared_request('POST', 'https://api.veracode.com/was/configservice/v1/analyses', json=data, query=job_options)
+
+#    if res2.status_code == 201 or res2.status_code == 200:
+    if res2.status_code == 201:
+        print("API Scan Created Successfully: " + str(res2.status_code))
+    else:
+        response2 = res2.json()
+        print("Creating the API Scan failed with the return code == " + str(res2.status_code))
+        #print("response is: " + str(response2))
+        print("Error encountered: " + response2['_embedded']['errors'][0]['detail'] + " Error: " + response2['_embedded']['errors'][0]['meta']['error_type'])
+    return res2
+    
 
 query_params = "spec_name=" + spec_name
 spec_file = {'file': open(api_spec,'rb')}
@@ -67,76 +123,30 @@ spec_file = {'file': open(api_spec,'rb')}
 res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/api_specifications', query=("spec_name=" + spec_name))
 response = res.json()
 try:
+    #found update it
     spec_id = response['_embedded']['api_specs'][0]['spec_id']
     print("API Specification located Successfully: " + str(res.status_code) + " API Specification ID is: " + spec_id)
-    
-    #found update it
     print("Updating the API Specification")
+
     try:
        #Upload API spec to Veracode platform:
 
        target = "https://api.veracode.com/was/configservice/v1/api_specifications/" + spec_id
        res = prepared_request('PUT', target, json=None, query=query_params,file=spec_file)
-       #res = prepared_request('PUT', target, json=None, query=query_params, file=spec_file)
-       print("Return code == " + str(res.status_code))
        if res.status_code == 200:
            response = res.json()
-           #spec_id = response['spec_id']
-           print("API Specification Uploaded Successfully: " + str(res.status_code))
+           print("API Specification Updated Successfully: " + str(res.status_code))
            print("API Specification ID updated: " + spec_id)
+           res_update = create_scan(dynamic_job, dynamic_target, spec_id)
     
-           #Payload for scheduling the API analysis job:
-
-           data =   {
-               "name": dynamic_job,
-               "scans":
-               [
-                   {
-                       "action_type": "ADD",
-                       "request_id": "0",
-                       "scan_config_request":
-                       {
-                           "target_url":
-                           {
-                               "url": dynamic_target
-                           },
-                           "api_scan_setting":
-                           {
-                               "spec_id": spec_id,
-                           }
-                       }
-                   }
-               ],
-               "visibility":
-               {
-                   "setup_type": "SEC_LEADS_ONLY",
-                   "team_identifiers":
-                   []
-               },
-             "schedule": {
-               "now": True,
-               "duration": {
-                 "length": 1,
-                 "unit": "DAY"
-               }
-             }
-           }
-        
-           #Add API Spec to dynamic analysis and start scan:
-        
-           job_options = 'run_verification=false&scan_type=API_SCAN'
-           print("Creating new API Scan Job: "+ dynamic_job )
-           res2 = prepared_request('POST', 'https://api.veracode.com/was/configservice/v1/analyses', json=data, query=job_options)
-
        else:
            response = res.json()
-           print("Return code == " + str(res.status_code))
-           print("response is " + str(response))
+           print("API Specification failed to Update Successfully: " + str(res.status_code))
            print("Error encountered: " + response['_embedded']['errors'][0]['detail'] + " Error: " + response['_embedded']['errors'][0]['meta']['invalid_spec_error']['error_type'])
-           sys.exit(1)
+
     except:
-        print("Error has occurred")
-        sys.exit(1)
+        print("An error has occurred")
+
 except:
     #not found create a new one
     print("Creating a new API Specification")
@@ -149,55 +159,12 @@ except:
            spec_id = response['spec_id']
            print("API Specification Uploaded Successfully: " + str(res.status_code))
            print("API Specification ID Created: " + spec_id)
+           res_update = create_scan(dynamic_job, dynamic_target, spec_id)
     
-           #Payload for scheduling the API analysis job:
-
-           data =   {
-               "name": dynamic_job,
-               "scans":
-               [
-                   {
-                       "action_type": "ADD",
-                       "request_id": "0",
-                       "scan_config_request":
-                       {
-                           "target_url":
-                           {
-                               "url": dynamic_target
-                           },
-                           "api_scan_setting":
-                           {
-                               "spec_id": spec_id,
-                           }
-                       }
-                   }
-               ],
-               "visibility":
-               {
-                   "setup_type": "SEC_LEADS_ONLY",
-                   "team_identifiers":
-                   []
-               },
-             "schedule": {
-               "now": True,
-               "duration": {
-                 "length": 1,
-                 "unit": "DAY"
-               }
-             }
-           }
-        
-           #Add API Spec to dynamic analysis and start scan:
-        
-           job_options = 'run_verification=false&scan_type=API_SCAN'
-           print("Creating new API Scan Job: "+ dynamic_job )
-           res2 = prepared_request('POST', 'https://api.veracode.com/was/configservice/v1/analyses', json=data, query=job_options)
-
        else:
            response = res.json()
+           print("API Specification failed to Upload Successfully: " + str(res.status_code))
            print("Error encountered: " + response['_embedded']['errors'][0]['detail'] + " Error: " + response['_embedded']['errors'][0]['meta']['invalid_spec_error']['error_type'])
-           sys.exit(1)
 
     except:
-       print("Error has occurred")
-       sys.exit(1)
+       print("An error has occurred")
