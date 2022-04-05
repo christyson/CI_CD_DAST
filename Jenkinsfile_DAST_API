@@ -3,9 +3,9 @@ pipeline {
     docker {
       image 'python:3'
     }
-    environment {
-       PIPELINE_ID="$BUILD_ID-$BUILD_NUMBER"
-    }
+  }
+  environment {
+    PIPELINE_ID="$BUILD_ID-$BUILD_NUMBER"
   }
   stages {
     stage ('----Pull----') {
