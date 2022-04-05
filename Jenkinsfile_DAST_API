@@ -5,7 +5,7 @@ pipeline {
     }
   }
   environment {
-    PIPELINE_ID="$BUILD_ID-$BUILD_NUMBER"
+    PIPELINE_ID="$BUILD_TAG"
   }
   stages {
     stage ('----Pull----') {
