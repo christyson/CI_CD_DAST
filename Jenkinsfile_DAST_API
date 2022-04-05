@@ -1,0 +1,30 @@
+pipeline {
+  agent {
+    docker {
+      image 'python:3'
+    }
+  }
+  stages {
+    stage ('----Pull----') {
+       steps {
+          git 'https://github.com/christyson/CI_CD_DAST'
+       }
+    }
+    stage ('----pip----') {
+       steps {
+          sh '''
+             pip3 install -r requirements.txt
+          '''
+       }
+    }
+    stage('----Create Veracode Dynamic Analysis Scan----'){
+        steps {
+           withCredentials([
+              usernamePassword(credentialsId: 'Veracode', passwordVariable: 'VeraPW', usernameVariable: 'VeraID'),
+           ]){
+              sh 'python3 "$WORKSPACE/create-api-spec-scan.py"'           
+           }
+        }
+    }
+  }
+}
