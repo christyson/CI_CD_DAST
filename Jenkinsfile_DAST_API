@@ -3,6 +3,9 @@ pipeline {
     docker {
       image 'python:3'
     }
+    environment {
+       PIPELINE_ID="$BUILD_ID-$BUILD_NUMBER"
+    }
   }
   stages {
     stage ('----Pull----') {
@@ -22,9 +25,6 @@ pipeline {
            withCredentials([
               usernamePassword(credentialsId: 'Veracode', passwordVariable: 'VERACODE_KEY', usernameVariable: 'VERACODE_ID'),
            ]){
-              environment {
-                 PIPELINE_ID="$BUILD_ID-$BUILD_NUMBER"
-              }
               sh 'python3 "$WORKSPACE/create-api-spec-scan.py"'           
            }
         }
