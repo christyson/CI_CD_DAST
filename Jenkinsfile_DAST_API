@@ -20,7 +20,7 @@ pipeline {
     stage('----Create Veracode Dynamic Analysis Scan----'){
         steps {
            withCredentials([
-              usernamePassword(credentialsId: 'Veracode', passwordVariable: 'VeraPW', usernameVariable: 'VeraID'),
+              usernamePassword(credentialsId: 'Veracode', passwordVariable: 'VERACODE_KEY', usernameVariable: 'VERACODE_ID'),
            ]){
               sh 'python3 "$WORKSPACE/create-api-spec-scan.py"'           
            }
