@@ -18,7 +18,6 @@ api_secret = os.getenv("VERACODE_KEY")
 dynamic_job = os.getenv("JOB_NAME") + " BRANCH Commit, pipeline ID: " + os.getenv("PIPELINE_ID") #Dynamic Job name will be same as the provided JOB_NAME name and PIPELINE_ID
 api_spec = os.getenv("API_FILE")
 spec_name = os.getenv("API_NAME") + "-" + os.getenv("PIPELINE_ID")
-print("API_NAME: "+ spec_name )
 dynamic_target = os.getenv("Dynamic_Target")
 
 def veracode_hmac(host, url, method):
