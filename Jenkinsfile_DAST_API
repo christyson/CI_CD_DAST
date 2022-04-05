@@ -22,6 +22,7 @@ pipeline {
            withCredentials([
               usernamePassword(credentialsId: 'Veracode', passwordVariable: 'VERACODE_KEY', usernameVariable: 'VERACODE_ID'),
            ]){
+              export PIPELINE_ID="$(BUILD_ID)-$(BUILD_NUMBER)"
               sh 'python3 "$WORKSPACE/create-api-spec-scan.py"'           
            }
         }
