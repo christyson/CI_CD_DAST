@@ -5,7 +5,7 @@ pipeline {
     }
   }
   environment {
-    API_NAME=API_NAME_BASE+$BUILD_ID
+    API_NAME="$API_NAME_BASE+$BUILD_ID"
     PIPELINE_ID="$BUILD_TAG"
   }
   stages {
