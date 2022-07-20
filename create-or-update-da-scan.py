@@ -194,7 +194,7 @@ data =   {
 #Update Schedule of the existing DA Job
 try:
 
-    print("About to update the Dynamic Analysis - " + dynamic_job + "job_id - " + job_id)
+    print("About to update the Dynamic Analysis - " + dynamic_job + " job_id - " + job_id)
     res = prepared_request('PUT', 'https://api.veracode.com/was/configservice/v1/analyses/' + job_id + '?method=PATCH', json=data)
     if res.status_code == 204:
         print("Scan Submitted Successfully: " + str(res.status_code) )
