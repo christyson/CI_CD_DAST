@@ -67,9 +67,9 @@ try:
     print("looked for app" + dynamic_job)
     uuid = response['_embedded']['applications'][0]['guid']
 except:
-    print("response failed")
+    print("response failed: "+ res.status_code)
     response = res.json()
-    print("Error encountered: " + response['_embedded']['errors'][0]['detail'])
+    print("Error encountered: " + str(response))
     print("Error executing API Call")
     sys.exit(1)
 
