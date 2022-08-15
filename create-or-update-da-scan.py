@@ -68,6 +68,8 @@ try:
     uuid = response['_embedded']['applications'][0]['guid']
 except:
     print("response failed")
+    response = res.json()
+    print("Error encountered: " + response['_embedded']['errors'][0]['detail'])
     print("Error executing API Call")
     sys.exit(1)
 
