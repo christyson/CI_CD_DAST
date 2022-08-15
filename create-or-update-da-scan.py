@@ -65,11 +65,12 @@ res = prepared_request('GET','https://api.veracode.com/appsec/v1/applications/?n
 response = res.json()
 try:
     print("looked for app" + dynamic_job)
+    print("Status code: " + str(res.status_code) )
+    response = res.json()
+    print("Response is: " + str(response))
     uuid = response['_embedded']['applications'][0]['guid']
 except:
     print("response failed: "+ res.status_code)
-    response = res.json()
-    print("Error encountered: " + str(response))
     print("Error executing API Call")
     sys.exit(1)
 
