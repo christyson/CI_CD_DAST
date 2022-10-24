@@ -68,7 +68,7 @@ try:
     print("Status code: " + str(res.status_code) )
     response = res.json()
     print("Response is: " + str(response))
-    uuid = response['_embedded']['applications'][0]['guid']
+#    uuid = response['_embedded']['applications'][0]['guid']
 except:
     print("response failed: "+ res.status_code)
     print("Error executing API Call")
@@ -88,7 +88,7 @@ except:
       "name": dynamic_job,
       "scans": [
         {
-          "linked_platform_app_uuid": uuid,  
+#          "linked_platform_app_uuid": uuid,  
           "scan_config_request": {
             "target_url": {
               "url": dynamic_target,
