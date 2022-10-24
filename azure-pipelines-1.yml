@@ -29,5 +29,6 @@ steps:
     export VeraPW=$(VERAPW)
     export Dynamic_User=$(DYNAMIC_USER)
     export Dynamic_Pass=$(DYNAMIC_PASS)
+    export PIPELINE_ID=$(Build.BuildNumber)
     python create-or-update-da-scan.py
   displayName: 'Create or update and run the Dynamic Analysis'
