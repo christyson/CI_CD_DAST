@@ -64,7 +64,7 @@ def prepared_request(method, end_point, json=None, query=None, file=None):
 res = prepared_request('GET','https://api.veracode.com/appsec/v1/applications/?name=' + dynamic_job+os.getenv("PIPELINE_ID"))
 response = res.json()
 try:
-    print("looked for app" + dynamic_jobos.getenv("PIPELINE_ID"))
+    print("looked for app" + dynamic_job+os.getenv("PIPELINE_ID"))
     print("Status code: " + str(res.status_code) )
     response = res.json()
     print("Response is: " + str(response))
