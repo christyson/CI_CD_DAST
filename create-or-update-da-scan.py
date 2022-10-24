@@ -20,7 +20,7 @@ login_user = os.getenv("Dynamic_User")
 login_pass = os.getenv("Dynamic_Pass")
 print("Dynamic Target is: " + dynamic_target)
 print("Login user is: " + login_user)
-dynamic_job = os.getenv("JOB_NAME") + " BRANCH Commit, pipeline ID: " + os.getenv("PIPELINE_ID") #Dynamic Job name will be same as the provided JOB_NAME name and PIPELINE_ID
+dynamic_job = os.getenv("JOB_NAME")
 
 def veracode_hmac(host, url, method):
     signing_data = 'id={api_id}&host={host}&url={url}&method={method}'.format(
@@ -61,10 +61,10 @@ def prepared_request(method, end_point, json=None, query=None, file=None):
 
 # code above this line is reusable for all/most API calls
 
-res = prepared_request('GET','https://api.veracode.com/appsec/v1/applications/?name=' + dynamic_job)
+res = prepared_request('GET','https://api.veracode.com/appsec/v1/applications/?name=' + dynamic_job+os.getenv("PIPELINE_ID"))
 response = res.json()
 try:
-    print("looked for app" + dynamic_job)
+    print("looked for app" + dynamic_jobos.getenv("PIPELINE_ID"))
     print("Status code: " + str(res.status_code) )
     response = res.json()
     print("Response is: " + str(response))
@@ -74,10 +74,10 @@ except:
     print("Error executing API Call")
     sys.exit(1)
 
-print("Looking for Dynamic Analysis Job: " + dynamic_job )
+print("Looking for Dynamic Analysis Job: " + dynamic_job+os.getenv("PIPELINE_ID") )
 
 #Retrieve DA Job ID by project name
-res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/analyses', query=("name=" + dynamic_job))
+res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/analyses', query=("name=" + dynamic_job+os.getenv("PIPELINE_ID")))
 response = res.json()
 try:
     job_id = response['_embedded']['analyses'][0]['analysis_id']
@@ -85,7 +85,7 @@ except:
     print("Could not find Dynamic Analysis - Create one")
     #Payload for creating and scheduling new DA job
     data =   {
-      "name": dynamic_job,
+      "name": dynamic_job+os.getenv("PIPELINE_ID"),
       "scans": [
         {
           "linked_platform_app_uuid": uuid,  
@@ -116,7 +116,7 @@ except:
       }
     }
 
-    print("Creating a new Dynamic Analysis Job: " + dynamic_job )
+    print("Creating a new Dynamic Analysis Job: " + dynamic_job+os.getenv("PIPELINE_ID") )
     res = prepared_request('POST', 'https://api.veracode.com/was/configservice/v1/analyses', json=data)
 
     if res.status_code == 201:
