@@ -77,7 +77,7 @@ except:
 print("Looking for Dynamic Analysis Job: " + dynamic_job )
 
 #Retrieve DA Job ID by project name
-res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/analyses', query=("name=" + dynamic_job))
+res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/analyses', query=("name=new" + dynamic_job))
 response = res.json()
 try:
     job_id = response['_embedded']['analyses'][0]['analysis_id']
