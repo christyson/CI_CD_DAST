@@ -15,7 +15,7 @@ from urllib.parse import urlparse
 #GitLab:
 api_id = os.getenv("VERACODE_ID")
 api_secret = os.getenv("VERACODE_KEY")
-dynamic_job = os.getenv("JOB_NAME") + " BRANCH Commit, pipeline ID: " + os.getenv("PIPELINE_ID") #Dynamic Job name will be same as the provided JOB_NAME name and PIPELINE_ID
+dynamic_job = os.getenv("JOB_NAME") + "_BRANCH_Commit_pipeline_ID:_" + os.getenv("PIPELINE_ID") #Dynamic Job name will be same as the provided JOB_NAME name and PIPELINE_ID
 api_spec = os.getenv("API_FILE")
 spec_name = os.getenv("API_NAME") + "-" + os.getenv("PIPELINE_ID")
 dynamic_target = os.getenv("Dynamic_Target")
