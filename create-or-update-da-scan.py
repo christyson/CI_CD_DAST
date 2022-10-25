@@ -186,7 +186,6 @@ except:
 #    }
 #  ],
 data =   {
-  "name": dynamic_job,
   "schedule": {
     "now": True,
     "duration": {
