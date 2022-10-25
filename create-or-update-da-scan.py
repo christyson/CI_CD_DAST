@@ -68,7 +68,7 @@ try:
     print("Status code: " + str(res.status_code) )
     response = res.json()
     print("Response is: " + str(response))
-#    uuid = response['_embedded']['applications'][0]['guid']
+    uuid = response['_embedded']['applications'][0]['guid']
 except:
     print("response failed: "+ res.status_code)
     print("Error executing API Call")
@@ -79,6 +79,7 @@ print("Looking for Dynamic Analysis Job: " + dynamic_job )
 #Retrieve DA Job ID by project name
 res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/analyses', query=("name=" + dynamic_job))
 response = res.json()
+print("Response for DA Job is: " + str(response))
 try:
     job_id = response['_embedded']['analyses'][0]['analysis_id']
 except: 
