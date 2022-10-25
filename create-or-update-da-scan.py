@@ -161,30 +161,32 @@ except:
     print("Error encountered: " + response['_embedded']['errors'][0]['detail'])
     sys.exit(1)
 
+#data =   {
+#  "name": dynamic_job,
+#  "scans": [
+#    {
+#      "scan_id": scan_id,  
+#      "action_type": "UPDATE_SELECTIVE",
+#      "scan_config_request": {
+#        "target_url": {
+#          "url": dynamic_target,
+#          "http_and_https": True,
+#          "directory_restriction_type": "DIRECTORY_AND_SUBDIRECTORY"            
+#       },
+#       "auth_configuration": {
+#         "authentications": {
+#            "AUTO": {
+#               "username": login_user,
+#               "password": login_pass,
+#               "authtype": "AUTO"
+#             }
+#           }
+#        }
+#      }
+#    }
+#  ],
 data =   {
   "name": dynamic_job,
-  "scans": [
-    {
-      "scan_id": scan_id,  
-      "action_type": "UPDATE_SELECTIVE",
-      "scan_config_request": {
-        "target_url": {
-          "url": dynamic_target,
-          "http_and_https": True,
-          "directory_restriction_type": "DIRECTORY_AND_SUBDIRECTORY"            
-       },
-       "auth_configuration": {
-         "authentications": {
-            "AUTO": {
-               "username": login_user,
-               "password": login_pass,
-               "authtype": "AUTO"
-             }
-           }
-        }
-      }
-    }
-  ],
   "schedule": {
     "now": True,
     "duration": {
