@@ -67,7 +67,7 @@ try:
     print("looked for app:" + dynamic_job)
     print("Status code: " + str(res.status_code) )
     response = res.json()
-    print("Response is: " + str(response))
+#    print("Response is: " + str(response))
     uuid = response['_embedded']['applications'][0]['guid']
 except:
     print("response failed: "+ res.status_code)
@@ -79,7 +79,7 @@ print("Looking for Dynamic Analysis Job: " + dynamic_job )
 #Retrieve DA Job ID by project name
 res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/analyses', query=("name=" + dynamic_job))
 response = res.json()
-print("Response for DA Job is: " + str(response))
+#print("Response for DA Job is: " + str(response))
 try:
     job_id = response['_embedded']['analyses'][0]['analysis_id']
 except: 
@@ -89,7 +89,7 @@ except:
       "name": dynamic_job,
       "scans": [
         {
-#          "linked_platform_app_uuid": uuid,  
+          "linked_platform_app_uuid": uuid,  
           "scan_config_request": {
             "target_url": {
               "url": dynamic_target,
@@ -150,7 +150,7 @@ try:
     response = res.json()
    
     if res.status_code == 200:
-        print("Scans found: " + str(res.status_code) )
+        print("Scans were found.  Return code: " + str(res.status_code) )
         scan_id = response['_embedded']['scans'][0]['scan_id']
         print("scan id is: " + scan_id)
     else:
