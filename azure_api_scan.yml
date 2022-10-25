@@ -24,10 +24,11 @@ steps:
 
  #   export Dynamic_User=$(DYNAMIC_USER)
  #   export Dynamic_Pass=$(DYNAMIC_PASS)
+#    export JOB_NAME='API_$(system.teamProject)_ADO_yaml'
 
 - script: |
     export Dynamic_Target=$(DYNAMIC_TARGET)
-    export JOB_NAME='API_$(system.teamProject)_ADO_yaml'
+    export JOB_NAME='$(Build.DefinitionName)_ADO_yaml'
     export PIPELINE_ID=$(Build.BuildNumber)
     export VERACODE_ID=$(VERAID)
     export VERACODE_KEY=$(VERAPW)
