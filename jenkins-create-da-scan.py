@@ -97,6 +97,7 @@ data =   {
 
 print("Creating a new Dynamic Analysis Job: " + dynamic_job )
 res = prepared_request('POST', 'https://api.veracode.com/was/configservice/v1/analyses', json=data)
+print("res is: "+str(res))
 
 if res.status_code == 201:
     print("Job Created and Submitted Successfully: " + str(res.status_code))
