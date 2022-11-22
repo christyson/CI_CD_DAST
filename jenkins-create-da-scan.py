@@ -21,7 +21,8 @@ login_pass = os.getenv("Dynamic_Pass")
 print("Dynamic Target is: " + dynamic_target)
 print("Login user is: " + login_user)
 dynamic_job = os.getenv("JOB_NAME") #Dynamic Job name will be same as Jenkins project name
-
+build_number = os.getenv("BUILD_NUMBER")
+dyn_name = dynamic_job+":"+build_number
 
 def veracode_hmac(host, url, method):
     signing_data = 'id={api_id}&host={host}&url={url}&method={method}'.format(
@@ -64,7 +65,7 @@ def prepared_request(method, end_point, json=None, query=None, file=None):
 
 #Payload for creating and scheduling new DA job
 data =   {
-  "name": dynamic_job,
+  "name": dyn_name,
   "scans": [
     {
       "scan_config_request": {
