@@ -101,5 +101,6 @@ res = prepared_request('POST', 'https://api.veracode.com/was/configservice/v1/an
 if res.status_code == 201:
     print("Job Created and Submitted Successfully: " + str(res.status_code))
 else:
+    print("status code is: "+str(res.status.code))
     response = res.json()
     print("Error encountered: " + response['_embedded']['errors'][0]['detail'])
