@@ -1,4 +1,4 @@
-# Demo pipeline to conduct a Veracod Dynamic Analysis Scan (create or update)
+# Demo pipeline to conduct a Veracode Dynamic Analysis Scan (create or update)
 
 trigger:
 #- master
