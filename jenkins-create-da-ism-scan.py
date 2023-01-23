@@ -22,7 +22,9 @@ gateway_id = os.getenv("gateway_id")
 endpoint_id = os.getenv("endpoint_id")
 #gate = os.getenv("gid")
 #end = os.getenv("eid")
-dynamic_job = os.getenv("JOB_NAME") +"5" #Dynamic Job name will be same as Jenkins project name
+dynamic_job = os.getenv("JOB_NAME") #Dynamic Job name will be same as Jenkins project name
+build_number = os.getenv("BUILD_NUMBER")
+dyn_name = dynamic_job+":"+build_number
 
 
 def veracode_hmac(host, url, method):
@@ -66,7 +68,7 @@ def prepared_request(method, end_point, json=None, query=None, file=None):
 
 #Payload for creating and scheduling new DA job
 data =   {
-  "name": dynamic_job,
+  "name": dyn_name,
   "scans": [
     {
       "scan_config_request": {
