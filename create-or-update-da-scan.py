@@ -20,7 +20,7 @@ login_user = os.getenv("Dynamic_User")
 login_pass = os.getenv("Dynamic_Pass")
 print("Dynamic Target is: " + dynamic_target)
 print("Login user is: " + login_user)
-dynamic_job = os.getenv("JOB_NAME")
+dynamic_job = os.getenv("JOB_NAME") + "-" + os.getenv("PIPELINE_ID")
 
 def veracode_hmac(host, url, method):
     signing_data = 'id={api_id}&host={host}&url={url}&method={method}'.format(
