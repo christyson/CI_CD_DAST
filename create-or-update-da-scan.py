@@ -61,18 +61,18 @@ def prepared_request(method, end_point, json=None, query=None, file=None):
 
 # code above this line is reusable for all/most API calls
 
-res = prepared_request('GET','https://api.veracode.com/appsec/v1/applications/?name=' + dynamic_job)
-response = res.json()
-try:
-    print("looked for app:" + dynamic_job)
-    print("Status code: " + str(res.status_code) )
-    response = res.json()
+#res = prepared_request('GET','https://api.veracode.com/appsec/v1/applications/?name=' + dynamic_job)
+#response = res.json()
+#try:
+#    print("looked for app:" + dynamic_job)
+#    print("Status code: " + str(res.status_code) )
+#    response = res.json()
 #    print("Response is: " + str(response))
-    uuid = response['_embedded']['applications'][0]['guid']
-except:
-    print("response failed: "+ res.status_code)
-    print("Error executing API Call")
-    sys.exit(1)
+#    uuid = response['_embedded']['applications'][0]['guid']
+#except:
+#    print("response failed: "+ res.status_code)
+#    print("Error executing API Call")
+#    sys.exit(1)
 
 print("Looking for Dynamic Analysis Job: " + dynamic_job )
 
@@ -80,6 +80,7 @@ print("Looking for Dynamic Analysis Job: " + dynamic_job )
 res = prepared_request('GET', 'https://api.veracode.com/was/configservice/v1/analyses', query=("name=" + dynamic_job))
 response = res.json()
 #print("Response for DA Job is: " + str(response))
+#          "linked_platform_app_uuid": uuid,  
 try:
     job_id = response['_embedded']['analyses'][0]['analysis_id']
 except: 
@@ -89,7 +90,6 @@ except:
       "name": dynamic_job,
       "scans": [
         {
-          "linked_platform_app_uuid": uuid,  
           "scan_config_request": {
             "target_url": {
               "url": dynamic_target,
