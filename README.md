@@ -41,6 +41,6 @@ The example also assumes the web site can work with Veracode's Dynamic Analysis 
 To create your Veracode ID/Secret Key you can look for instructions here: https://help.veracode.com/r/c_api_credentials3
 To find your gateway_id and endpoint_id you can look for instructions here: https://help.veracode.com/r/t_dynamic_ISM
 
-
+Note: it appears you need security lead to launch dynamic scans using this script.
 
 Note: more examples to come later
