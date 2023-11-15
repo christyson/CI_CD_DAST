@@ -7,7 +7,7 @@
    },
    "servers": [
       {
-         "url": "http://petstoreapi.jbukstel.vuln.sa.veracode.io:5000"
+         "url": "http://petstoreapi.ctyson.vuln.sa.veracode.io:5000"
       }
    ],
    "components": {},
