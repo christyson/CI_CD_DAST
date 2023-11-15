@@ -1,0 +1,304 @@
+openapi: 3.0.1
+info:
+  title: Pet Store API
+  description: OpenAPI v3 spec
+  version: '0.1'
+servers:
+  - url: http://petstoreapi.jbukstel.vuln.sa.veracode.io:5000
+components: {}
+paths:
+  /api/v1/user/{username}:
+    get:
+      tags:
+        - users
+      summary: Retrieves all users
+      description: Displays all users with basic information
+      opertationsId: getUser
+      parameters:
+        - name: username
+          in: path
+          description: retrieve username data
+          required: true
+          schema:
+            type: string
+            example: 'weld_pond'
+      responses:
+        '200':
+          description: See basic info about a given user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    firstname:
+                      type: string
+                    id:
+                      type: integer
+                    lastname:
+                      type: string
+                    password:
+                      type: string
+                    phone:
+                      type: string
+                    userStatus:
+                      type: boolean
+                    username:
+                      type: string
+          '404':
+            description: User not found
+            content: {}
+    put:
+      tags:
+        - users
+      summary: update data for specific user
+      description: update some or all data for specific user
+      operationId: updateUser
+      parameters:
+        - name: username
+          in: path
+          description: username to update
+          required: true
+          schema:
+            type: string
+            example: 'j_bukstel'
+      requestBody:
+        description: update fields below
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: 'test123@test.com'
+                firstname:
+                  type: string
+                  example: 'Justin'
+                id:
+                  type: integer
+                  example: 2
+                lastname:
+                  type: string
+                  example: 'Bukstel'
+                password:
+                  type: string
+                  example: "T3test123"
+                phone:
+                  type: string
+                  example: "111.222.3333"
+                userStatus:
+                  type: boolean
+                  example: 1
+                username:
+                  type: string
+                  example: 'j_bukstel'
+        required: true
+      responses:
+        '200':
+          description: User updated successfully!
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        '404':
+          description: User does not exist
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+    delete:
+      tags:
+        - users 
+      summary: user deleted successfully
+      description: Delete a user by username
+      operationsId: deleteUser
+      parameters:
+        - name: username
+          in: path
+          description: delete user
+          required: true
+          schema:
+            type: string
+            example: 'j_bukstel'
+      responses:
+        '200':
+          description: User deleted successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        '404':
+          description: User does not exist
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                
+  /api/v1/user:
+    get:
+      tags:
+        - users
+      summary: retrieve all users
+      description: displays all users
+      operationsId: getUsers
+      responses: 
+        '200':
+          description: See basic info about all users 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    firstname:
+                      type: string
+                    id:
+                      type: integer
+                    lastname:
+                      type: string
+                    password:
+                      type: string
+                    phone:
+                      type: string
+                    userStatus:
+                      type: boolean
+                    username:
+                      type: string
+    post:
+      tags:
+        - users
+      summary: add a user
+      description: allows authenticated user to add a user
+      operationsId: addUsers
+      requestBody:
+        description: Creates new user in system
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: 'test@test.com'
+                firstname:
+                  type: string
+                  example: 'Justin'
+                id:
+                  type: integer
+                  example: 2
+                lastname:
+                  type: string
+                  example: 'Bukstel'
+                password:
+                  type: string
+                  example: "T3test123"
+                phone:
+                  type: string
+                  example: "111.222.3333"
+                userStatus:
+                  type: boolean
+                  example: 1
+                username:
+                  type: string
+                  example: 'j_bukstel'
+        required: true
+      responses:
+        201:
+          description: User added successfully!
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    message:
+                      type: string
+                
+  /api/v1/user/login:
+    post:
+      tags:
+        - users
+      summary: Login to generate auth token
+      description: Creates an auth token for use in admin endpoints
+      operationsId: login
+      requestBody:
+        description: Login to generate auth token
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "j_bukstel"
+                password:
+                  type: string
+                  example: "T3test123"
+        required: true
+      responses:
+        '201':
+          description: Login Succeeded!
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    access_token:
+                      type: string
+                    message:
+                      type: string
+        '401':
+          description: Bad Username or Password
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+
+
+
+
+
+
+
+
+                      
+
+
+                    
